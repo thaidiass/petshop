@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petshop &amp; Loja Online | Amigo Fiel</title>
+  <!-- Font Awesome para ícones (opcional, mas útil) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET E ESTILOS GLOBAIS ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #2d3e50;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- CABEÇALHO ---------- */
+    header {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo i {
+      font-size: 2.2rem;
+      color: #ffd54f;
+    }
+
+    .logo span {
+      color: #ffd54f;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      font-weight: 500;
+    }
+
+    nav ul li a {
+      padding: 0.5rem 0;
+      border-bottom: 3px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      border-bottom-color: #ffd54f;
+      color: #ffd54f;
+    }
+
+    .cart-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .cart-icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .cart-count {
+      background-color: #ffd54f;
+      color: #1b5e20;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1888&auto=format&fit=crop') center/cover no-repeat;
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      border-radius: 0 0 30px 30px;
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #ffd54f;
+      color: #1b5e20;
+      font-weight: 700;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+      background-color: #ffca28;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ---------- TÍTULOS DE SEÇÃO ---------- */
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 2.5rem;
+      color: #1b5e20;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #ffd54f;
+      margin: 0.5rem auto 0;
+      border-radius: 4px;
+    }
+
+    /* ---------- SERVIÇOS (cards) ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: 0.3s;
+      border: 1px solid #e9ecef;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 30px rgba(46, 125, 50, 0.15);
+    }
+
+    .service-card i {
+      font-size: 3rem;
+      color: #2e7d32;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: #1e2e1e;
+    }
+
+    .service-card p {
+      color: #5a6c7a;
+    }
+
+    /* ---------- PRODUTOS (loja) ---------- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      transition: 0.25s;
+      border: 1px solid #e9ecef;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ffd54f;
+      color: #1b5e20;
+      font-weight: 700;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-info .description {
+      color: #5a6c7a;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      flex: 1;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 1rem;
+    }
+
+    .price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #7a8b9b;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+    }
+
+    .btn-add {
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .btn-add:hover {
+      background-color: #1b5e20;
+    }
+
+    .btn-add i {
+      font-size: 1rem;
+    }
+
+    /* ---------- CARRINHO (painel flutuante) ---------- */
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 380px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s ease;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    .cart-panel.open {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .cart-header h2 {
+      font-size: 1.6rem;
+      color: #1b5e20;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #5a6c7a;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f1f3f5;
+      align-items: center;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .cart-item-price {
+      color: #2e7d32;
+      font-weight: 700;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .cart-item-qty button {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-item-qty span {
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.2rem;
+    }
+
+    .cart-total {
+      border-top: 2px solid #e9ecef;
+      padding-top: 1rem;
+      text-align: right;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cart-total span {
+      color: #2e7d32;
+    }
+
+    .btn-checkout {
+      background-color: #ffd54f;
+      color: #1b5e20;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+    }
+
+    .btn-checkout:hover {
+      background-color: #ffca28;
+    }
+
+    .empty-cart-message {
+      text-align: center;
+      color: #7a8b9b;
+      padding: 2rem 0;
+      font-style: italic;
+    }
+
+    /* ---------- RODAPÉ ---------- */
+    footer {
+      background-color: #1e2e1e;
+      color: #cfd8dc;
+      padding: 3rem 0 1.5rem;
+      border-radius: 30px 30px 0 0;
+      margin-top: 3rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      color: #ffd54f;
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-col ul li a:hover {
+      color: #ffd54f;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-icons a:hover {
+      color: #ffd54f;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2c3e2c;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- RESPONSIVIDADE ---------- */
+    @media (max-width: 800px) {
+      .header-flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav ul {
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .cart-panel {
+        width: 100%;
+        right: -100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .logo i {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .btn {
+        padding: 0.7rem 1.8rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Pequeno ajuste para evitar que o conteúdo fique atrás do painel */
+    body.cart-open {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="container header-flex">
+      <div class="logo">
+        <i class="fas fa-paw"></i>
+        <div>Amigo <span>Fiel</span></div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Início</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#produtos">Loja</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Cuide bem de quem você ama</h1>
+      <p>Ração, brinquedos, medicamentos e serviços completos para seu pet. Tudo em um só lugar.</p>
+      <a href="#produtos" class="btn">Comprar agora <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="container">
+    <h2 class="section-title">Nossos Serviços</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fas fa-cut"></i>
+        <h3>Banho & Tosa</h3>
+        <p>Profissionais carinhosos e produtos de qualidade para deixar seu pet lindo e cheiroso.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-stethoscope"></i>
+        <h3>Consultas</h3>
+        <p>Veterinários experientes para cuidar da saúde do seu melhor amigo.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-truck"></i>
+        <h3>Entrega Rápida</h3>
+        <p>Receba os produtos da loja online em casa com toda comodidade.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-dog"></i>
+        <h3>Adestramento</h3>
+        <p>Treinamento positivo para cães de todas as idades e portes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS / LOJA -->
+  <section id="produtos" class="container">
+    <h2 class="section-title">Loja Online</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- Os produtos serão inseridos via JavaScript para facilitar a manutenção -->
+    </div>
+  </section>
+
+  <!-- CARRINHO LATERAL -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h2><i class="fas fa-shopping-basket"></i> Seu Carrinho</h2>
+      <button class="close-cart" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Itens do carrinho aparecerão aqui -->
+      <div class="empty-cart-message">Seu carrinho está vazio.</div>
+    </div>
+    <div class="cart-total">
+      Total: <span id="cartTotal">R$ 0,00</span>
+    </div>
+    <button class="btn-checkout" id="checkoutBtn"><i class="fas fa-check-circle"></i> Finalizar Compra</button>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer id="contato">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Amigo Fiel</h4>
+          <p>Cuidando do seu pet com amor desde 2010.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Horário</h4>
+          <ul>
+            <li>Seg - Sex: 8h às 20h</li>
+            <li>Sábado: 8h às 18h</li>
+            <li>Domingo: 9h às 14h</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><i class="fas fa-phone-alt"></i> (11) 99999-8888</li>
+            <li><i class="fas fa-envelope"></i> contato@amigofiel.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Av. dos Pets, 123 - SP</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Petshop Amigo Fiel - Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // ---------- DADOS DOS PRODUTOS ----------
+      const products = [
+        {
+          id: 1,
+          name: 'Ração Premium para Cães',
+          description: 'Sabor frango e arroz, 15kg, ideal para cães adultos.',
+          price: 189.90,
+          oldPrice: 249.90,
+          image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=1740&auto=format&fit=crop',
+          badge: 'Oferta'
+        },
+        {
+          id: 2,
+          name: 'Brinquedo Mordedor',
+          description: 'Brinquedo resistente para cães de porte médio.',
+          price: 39.90,
+          oldPrice: 59.90,
+          image: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?q=80&w=1740&auto=format&fit=crop',
+          badge: 'Novo'
+        },
+        {
+          id: 3,
+          name: 'Arranhador para Gatos',
+          description: 'Poste com plataformas e brinquedo suspenso.',
+          price: 129.90,
+          oldPrice: null,
+          image: 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=1740&auto=format&fit=crop',
+          badge: ''
+        },
+        {
+          id: 4,
+          name: 'Coleira Peitoral',
+          description: 'Confortável e ajustável, com refletivos.',
+          price: 49.90,
+          oldPrice: 79.90,
+          image: 'https://images.unsplash.com/photo-1602252286367-4b5b2c9c6c6a?q=80&w=1740&auto=format&fit=crop',
+          badge: 'Promoção'
+        },
+        {
+          id: 5,
+          name: 'Shampoo Neutro Pet',
+          description: 'Limpa e hidrata, indicado para todos os tipos de pelagem.',
+          price: 34.90,
+          oldPrice: 44.90,
+          image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1740&auto=format&fit=crop',
+          badge: ''
+        },
+        {
+          id: 6,
+          name: 'Cama Macia para Gatos',
+          description: 'Cama redonda ultra macia, tamanho M.',
+          price: 89.90,
+          oldPrice: 119.90,
+          image: 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=1740&auto=format&fit=crop',
+          badge: 'Frete grátis'
+        }
+      ];
+
+      // ---------- ESTADO DO CARRINHO ----------
+      let cart = []; // Cada item: { id, name, price, quantity }
+
+      // ---------- ELEMENTOS DOM ----------
+      const productsGrid = document.getElementById('productsGrid');
+      const cartPanel = document.getElementById('cartPanel');
+      const cartIcon = document.getElementById('cartIcon');
+      const closeCartBtn = document.getElementById('closeCartBtn');
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartCountSpan = document.getElementById('cartCount');
+      const cartTotalSpan = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      // ---------- FUNÇÕES AUXILIARES ----------
+      // Formatar preço em Real
+      function formatPrice(value) {
+        return `R$ ${value.toFixed(2).replace('.', ',')}`;
+      }
+
+      // Atualizar contador do carrinho (ícone)
+      function updateCartCount() {
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+        cartCountSpan.textContent = totalItems;
+      }
+
+      // Calcular total do carrinho
+      function calculateTotal() {
+        return cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      }
+
+      // Renderizar itens do carrinho no painel
+      function renderCartItems() {
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<div class="empty-cart-message">Seu carrinho está vazio.</div>';
+          cartTotalSpan.textContent = 'R$ 0,00';
+          return;
+        }
+
+        let html = '';
+        cart.forEach(item => {
+          html += `
+            <div class="cart-item" data-id="${item.id}">
+              <div class="cart-item-info">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">${formatPrice(item.price)}</div>
+                <div class="cart-item-qty">
+                  <button class="decrease-qty" data-id="${item.id}">−</button>
+                  <span>${item.quantity}</span>
+                  <button class="increase-qty" data-id="${item.id}">+</button>
+                </div>
+              </div>
+              <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          `;
+        });
+        cartItemsContainer.innerHTML = html;
+
+        // Atualiza total
+        cartTotalSpan.textContent = formatPrice(calculateTotal());
+      }
+
+      // Atualizar toda a interface do carrinho
+      function updateCartUI() {
+        updateCartCount();
+        renderCartItems();
+      }
+
+      // Adicionar produto ao carrinho
+      function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const existingItem = cart.find(item => item.id === productId);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1
+          });
+        }
+        updateCartUI();
+        // Abre o painel do carrinho para feedback visual
+        cartPanel.classList.add('open');
+        document.body.classList.add('cart-open');
+      }
+
+      // Remover item totalmente do carrinho
+      function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        updateCartUI();
+      }
+
+      // Alterar quantidade (+1 / -1)
+      function changeQuantity(productId, delta) {
+        const item = cart.find(item => item.id === productId);
+        if (!item) return;
+
+        const newQuantity = item.quantity + delta;
+        if (newQuantity <= 0) {
+          removeFromCart(productId);
+        } else {
+          item.quantity = newQuantity;
+          updateCartUI();
+        }
+      }
+
+      // Renderizar vitrine de produtos
+      function renderProducts() {
+        let html = '';
+        products.forEach(product => {
+          const oldPriceHtml = product.oldPrice 
+            ? `<small>${formatPrice(product.oldPrice)}</small>` 
+            : '';
+          const badgeHtml = product.badge 
+            ? `<div class="product-badge">${product.badge}</div>` 
+            : '';
+
+          html += `
+            <div class="product-card">
+              <div class="product-img" style="background-image: url('${product.image}');">
+                ${badgeHtml}
+              </div>
+              <div class="product-info">
+                <h3>${product.name}</h3>
+                <p class="description">${product.description}</p>
+                <div class="price">
+                  ${formatPrice(product.price)} ${oldPriceHtml}
+                </div>
+                <button class="btn-add" data-id="${product.id}">
+                  <i class="fas fa-cart-plus"></i> Adicionar
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        productsGrid.innerHTML = html;
+      }
+
+      // ---------- EVENTOS ----------
+      // Abrir/fechar carrinho
+      cartIcon.addEventListener('click', () => {
+        cartPanel.classList.add('open');
+        document.body.classList.add('cart-open');
+      });
+
+      closeCartBtn.addEventListener('click', () => {
+        cartPanel.classList.remove('open');
+        document.body.classList.remove('cart-open');
+      });
+
+      // Fechar carrinho clicando fora (opcional - no fundo escuro)
+      document.addEventListener('click', (e) => {
+        if (cartPanel.classList.contains('open') && 
+            !cartPanel.contains(e.target) && 
+            !cartIcon.contains(e.target)) {
+          cartPanel.classList.remove('open');
+          document.body.classList.remove('cart-open');
+        }
+      });
+
+      // Delegação de eventos no grid de produtos (para botões "Adicionar")
+      productsGrid.addEventListener('click', (e) => {
+        const addBtn = e.target.closest('.btn-add');
+        if (addBtn) {
+          const id = Number(addBtn.dataset.id);
+          addToCart(id);
+        }
+      });
+
+      // Delegação de eventos no carrinho (aumentar, diminuir, remover)
+      cartItemsContainer.addEventListener('click', (e) => {
+        const target = e.target.closest('button');
+        if (!target) return;
+
+        const id = Number(target.dataset.id);
+        if (target.classList.contains('increase-qty')) {
+          changeQuantity(id, 1);
+        } else if (target.classList.contains('decrease-qty')) {
+          changeQuantity(id, -1);
+        } else if (target.classList.contains('remove-item')) {
+          removeFromCart(id);
+        }
+      });
+
+      // Finalizar compra
+      checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) {
+          alert('Seu carrinho está vazio. Adicione produtos antes de finalizar.');
+          return;
+        }
+        const total = calculateTotal();
+        const itemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+        alert(`Pedido finalizado!\n\nItens: ${itemsCount}\nTotal: ${formatPrice(total)}\n\nObrigado por comprar no Petshop Amigo Fiel!`);
+        // Limpar carrinho
+        cart = [];
+        updateCartUI();
+        // Fechar painel
+        cartPanel.classList.remove('open');
+        document.body.classList.remove('cart-open');
+      });
+
+      // ---------- INICIALIZAÇÃO ----------
+      function init() {
+        renderProducts();
+        updateCartUI(); // Inicia com carrinho vazio
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
